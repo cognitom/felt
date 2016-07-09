@@ -1,0 +1,36 @@
+{
+  "name": "felt",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "homepage": "https://github.com/cognitom/felt",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cognitom/felt.git"
+  },
+  "author": "Tsutomu Kawamura",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cognitom/felt/issues"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "express": "^4.14.0",
+    "felt-postcss": "^0.0.1",
+    "felt-rollup": "^0.0.1",
+    "fs-promise": "^0.5.0",
+    "loglevel": "^1.4.1",
+    "minimatch": "^3.0.2"
+  },
+  "devDependencies": {
+    "ava": "^0.15.2",
+    "eslint": "^3.0.1",
+    "nightmare": "^2.5.2"
+  },
+  "scripts": {
+    "test": "npm run eslint && npm run ava",
+    "eslint": "eslint index.js lib/*.js",
+    "ava": "ava test/spec.js"
+  }
+}
