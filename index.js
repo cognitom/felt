@@ -10,6 +10,7 @@ const
 /** default config file name */
 const defaultConfigFileName = 'felt.config.js'
 
+/** default values */
 const defaults = {
   src: null,
   cache: 'cache',
