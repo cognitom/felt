@@ -1,6 +1,7 @@
 'use strict'
 
 const
+  co = require('co'),
   path = require('path'),
   log = require('loglevel'),
   refresh = require('./lib/refresh'),
@@ -34,11 +35,14 @@ module.exports = function(opts) {
         const
           root = process.cwd(),
           configFile = path.join(root, opts || defaultConfigFileName)
+
+        log.debug(`Loading: ${ configFile }`)
         opts = require(configFile)
       } catch (e) {
         throw new Error('No config file')
       }
     } else {
+      log.debug(`opts.src: ${ opts }`)
       opts = { src: opts }
     }
   }
@@ -48,8 +52,10 @@ module.exports = function(opts) {
   if (!opts.src) throw new Error('Felt needs src directory. Ex: "public"')
   opts.compilers = opts.compilers || require('./felt.config.js').compilers
 
-  if (opts.refresh) refresh(opts)
-  if (opts.watch) watch(opts)
+  co(function* () {
+    if (opts.refresh) yield refresh(opts)
+    if (opts.watch) watch(opts)
+  })
 
   return handler(opts)
 }
