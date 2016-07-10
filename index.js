@@ -25,24 +25,28 @@ const defaults = {
 }
 
 module.exports = function(opts) {
-  if (!opts || typeof opts == 'string') {
-    const isConfig = /\.js$/
-    if (!opts || isConfig.test(opts)) {
-      try {
-        const
-          root = process.cwd(),
-          configFile = path.join(root, opts || defaultConfigFileName)
+  const
+    root = process.cwd(),
+    isConfig = /\.js$/
 
-        opts = require(configFile)
-      } catch (e) {
-        throw new Error('No config file')
-      }
+  let configFile = path.join(root, defaultConfigFileName)
+
+  if (opts && typeof opts == 'string') {
+    if (isConfig.test(opts)) {
+      configFile = path.join(root, opts)
+      opts = {}
     } else {
       opts = { src: opts }
     }
   }
+  opts = opts || {}
 
-  opts = Object.assign({}, defaults, opts)
+  try {
+    const config = require(configFile)
+    opts = Object.assign({}, defaults, config, opts)
+  } catch (e) {
+    opts = Object.assign({}, defaults, opts)
+  }
 
   if (!opts.src) throw new Error('Felt needs src directory. Ex: "public"')
   opts.compilers = opts.compilers || require('./felt.config.js').compilers
