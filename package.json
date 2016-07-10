@@ -1,14 +1,17 @@
 {
   "name": "felt",
   "version": "0.0.1",
-  "description": "",
-  "private": true,
+  "description": "Ondemand bundler for ES6 / CSS Next",
   "main": "index.js",
   "homepage": "https://github.com/cognitom/felt",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cognitom/felt.git"
   },
+  "keywords": [
+    "express",
+    "middleware"
+  ],
   "author": "Tsutomu Kawamura",
   "license": "MIT",
   "bugs": {
