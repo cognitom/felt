@@ -38,7 +38,7 @@ const
 const app = express()
 
 app.use(felt({
-  src: 'public'
+  src: 'public',
   cache: 'cache',
   compilers: {
     '**/*.js': rollup('rollup.config.js'),
