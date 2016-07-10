@@ -25,9 +25,6 @@ const defaults = {
 }
 
 module.exports = function(opts) {
-  const loglevel = opts.debug ? log.levels.DEBUG : log.levels.ERROR
-  log.setLevel(loglevel, false)
-
   if (!opts || typeof opts == 'string') {
     const isConfig = /\.js$/
     if (!opts || isConfig.test(opts)) {
@@ -36,13 +33,11 @@ module.exports = function(opts) {
           root = process.cwd(),
           configFile = path.join(root, opts || defaultConfigFileName)
 
-        log.debug(`Loading: ${ configFile }`)
         opts = require(configFile)
       } catch (e) {
         throw new Error('No config file')
       }
     } else {
-      log.debug(`opts.src: ${ opts }`)
       opts = { src: opts }
     }
   }
@@ -51,6 +46,9 @@ module.exports = function(opts) {
 
   if (!opts.src) throw new Error('Felt needs src directory. Ex: "public"')
   opts.compilers = opts.compilers || require('./felt.config.js').compilers
+
+  const loglevel = opts.debug ? log.levels.DEBUG : log.levels.ERROR
+  log.setLevel(loglevel, false)
 
   co(function* () {
     if (opts.refresh) yield refresh(opts)
