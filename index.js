@@ -2,54 +2,50 @@
 
 const
   co = require('co'),
-  path = require('path'),
   log = require('loglevel'),
   refresh = require('./lib/refresh'),
   watch = require('./lib/watch'),
   handler = require('./lib/handler')
-
-/** default config file name */
-const defaultConfigFileName = 'felt.config.js'
 
 /** default values */
 const defaults = {
   src: null,
   cache: 'cache',
   root: process.cwd(),
+  handlers: {}, // default handlers for each extension
+  patterns: [], // array of globs to handle
   update: 'once', // 'never', 'once' or 'allways'
   refresh: true, // refresh on starting
   watch: false,
   maxAge: 0,
-  compilers: null,
   debug: false
 }
 
-module.exports = function(opts) {
-  const
-    root = process.cwd(),
-    isConfig = /\.js$/
+module.exports = function(...configs) {
+  const opts = Object.assign({}, defaults)
 
-  let configFile = path.join(root, defaultConfigFileName)
-
-  if (opts && typeof opts == 'string') {
-    if (isConfig.test(opts)) {
-      configFile = path.join(root, opts)
-      opts = {}
-    } else {
-      opts = { src: opts }
-    }
-  }
-  opts = opts || {}
-
-  try {
-    const config = require(configFile)
-    opts = Object.assign({}, defaults, config, opts)
-  } catch (e) {
-    opts = Object.assign({}, defaults, opts)
+  // composition of recipes, configs and overwrites
+  for (const config of configs) {
+    config.handlers = Object.assign(opts.handlers, config.handlers || {})
+    Object.assign(opts, config)
   }
 
+  // some checks and modifications
   if (!opts.src) throw new Error('Felt needs src directory. Ex: "public"')
-  opts.compilers = opts.compilers || require('./felt.config.js').compilers
+  if (!opts.patterns.length) {
+    opts.patterns = Object.keys(opts.handlers).map(ext => `**/*${ ext }`)
+  }
+
+  // wires up the patterns and handlers
+  opts.patterns = opts.patterns.map(pattern => {
+    if (typeof pattern == 'string') pattern = { pattern }
+    if (!pattern.pattern) throw new Error('No pattern')
+    if (pattern.handler) return pattern
+    for (const ext in opts.handlers)
+      if (new RegExp(`\\${ ext }$`).test(pattern.pattern))
+        return Object.assign(pattern, { handler: opts.handlers[ext] })
+    throw new Error(`No handler refistered: ${ pattern }`)
+  })
 
   const loglevel = opts.debug ? log.levels.DEBUG : log.levels.ERROR
   log.setLevel(loglevel, false)
