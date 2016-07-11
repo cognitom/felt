@@ -1,0 +1,18 @@
+Usage
+  $ felt <input>
+
+Options
+  --recipe, -r  Recipe for Felt (felt-recipe-*)
+  --config, -c  Path to config
+  --src,    -s  Document directory
+  --cache       Cache directory
+  --root        Root directory of the project
+  --update, -u  never, once or allways
+  --refresh     Starts with refreshing
+  --no-refresh  Starts without refreshing
+  --watch,  -w  Watches files
+  --debug       Shows debugging comment
+
+Examples
+  $ felt --recipe minimal --src public
+  $ felt --config felt.config.js

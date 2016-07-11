@@ -1,8 +1,9 @@
 {
   "name": "felt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ondemand bundler for ES6 / CSS Next",
   "main": "index.js",
+  "bin": "./bin/index.js",
   "homepage": "https://github.com/cognitom/felt",
   "repository": {
     "type": "git",
@@ -25,12 +26,15 @@
     "fs-promise": "^0.5.0",
     "glob": "^7.0.5",
     "loglevel": "^1.4.1",
+    "meow": "^3.7.0",
     "minimatch": "^3.0.2",
+    "request": "^2.73.0",
     "tiny-promisify": "^0.1.1"
   },
   "devDependencies": {
     "ava": "^0.15.2",
     "eslint": "^3.0.1",
+    "felt-recipe-minimal": "^0.1.0",
     "nightmare": "^2.5.2"
   },
   "scripts": {
