@@ -9,7 +9,7 @@ See also its [options](#options), [plugins](#plugins) and [recipes](#recipes).
 
 ## CLI usages
 
-In short, install felt globally:
+In short, install Felt globally:
 
 ```bash
 $ npm install -g felt
@@ -242,6 +242,7 @@ Recipes are pre-made configurations. You can use these recipe with some overwrit
 - [felt-recipe-minimal](https://github.com/cognitom/felt-recipe-minimal): PostCSS and Rollup with Bublé
 - [felt-recipe-standard](https://github.com/cognitom/felt-recipe-standard): PostCSS and Rollup with Babel
 
+*Note: the repository name of the recipe supposed to have prefix `felt-recipe-`.* 
 
 ## License
 
