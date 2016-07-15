@@ -81,5 +81,5 @@ co(function* () {
   const opts = configBuilder(recipe, config, flavor)
 
   if (flags.export) staticExport(opts)
-    else server(opts)
+  else server(opts)
 })
