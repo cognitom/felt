@@ -15,8 +15,14 @@ module.exports = function(...configs) {
   log.setLevel(loglevel, false)
 
   co(function* () {
-    if (opts.refresh) yield refresh(opts)
-    if (opts.watch) watch(opts)
+    if (opts.refresh) {
+      yield refresh(opts)
+      log.debug('Refreshing completed!')
+    }
+    if (opts.watch) {
+      watch(opts)
+      log.debug('Watching started!')
+    }
   })
 
   return handler(opts)
