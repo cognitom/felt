@@ -4,10 +4,15 @@ import test from 'ava'
 import del from 'del'
 import path from 'path'
 import fsp from 'fs-promise'
+import requestOriginal from 'request'
+import promisify from 'tiny-promisify'
+import recipeMinimal from 'felt-recipe-minimal'
 import configBuilder from '../lib/config-builder'
 import mkdirs from '../lib/mkdirs'
 import npmExists from '../lib/npm-exists'
 import server from '../lib/server'
+
+const request = promisify(requestOriginal)
 
 test('builds basic opts from configs', function(t) {
   const
@@ -94,4 +99,17 @@ test('checks npm-exists', async function(t) {
 
   t.true(minimalIsExists)
   t.false(maximalIsNotExists)
+})
+
+test('bundles scripts', async function(t) {
+  const
+    port = 3333,
+    opts = configBuilder(recipeMinimal, { src: 'fixture', port }),
+    url = `http://localhost:${ port }/a.js`,
+    myServer = await server(opts),
+    response = await request(url),
+    expect = await fsp.readFile('expect/a.js', 'utf8')
+
+  t.is(response.body, expect.trim())
+  myServer.close()
 })

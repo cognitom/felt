@@ -40,12 +40,11 @@
   "devDependencies": {
     "ava": "^0.15.2",
     "eslint": "^3.0.1",
-    "felt-recipe-minimal": "^0.1.0",
-    "nightmare": "^2.5.2"
+    "felt-recipe-minimal": "^0.1.0"
   },
   "scripts": {
     "test": "npm run eslint && npm run ava",
-    "eslint": "eslint index.js lib/*.js",
+    "eslint": "eslint index.js lib/*.js bin/*.js",
     "ava": "ava test/spec.js"
   }
 }
