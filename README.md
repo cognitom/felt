@@ -1,11 +1,126 @@
-# Felt
+![Felt](doc/logo.png)
 
-## Usage
+On-demand bundler for ES6 / CSS Next.
+
+- [Use Felt as a webserver via CLI](#cli-usages)
+- [Use Felt as a middleware of Express](#with-express)
+
+See also its [options](#options), [plugins](#plugins) and [recipes](#recipes).
+
+## CLI usages
+
+In short, install felt globally:
+
+```bash
+$ npm install -g felt
+```
+
+And run Felt:
+
+```bash
+$ cd path/to/project/
+$ felt
+```
+
+### Run Felt
+
+Assume that you have a project like this:
+
+- project/
+  - public/
+    - index.html
+    - main.js
+    - style.css
+  - cache/
+  - package.json
+
+Install a [recipe](#recipes) from npm:
+
+```bash
+$ npm install -g felt-recipe-minimal
+```
+
+Then run Felt:
+
+```bash
+$ cd path/to/project/
+$ felt --recipe minimal --src public
+```
+
+There're some [official recipes](#secipes). Check them, too.
+
+### Use config files
+
+Assume that you have a project like this:
+
+- project/
+  - public/
+    - index.html
+    - main.js
+    - style.css
+  - cache/
+  - package.json
+  - felt.config.js
+
+Or choose your own config file:
+
+```bash
+$ felt --config felt.config.js
+```
+
+The default name of `config` is `felt.config.js`, so it's also fine:
+
+```bash
+$ felt --config
+```
+
+The config file could be like this:
+
+```javascript
+'use strict'
+const
+  rollup = require('felt-rollup'),
+  buble = require('rollup-plugin-buble'),
+  resolve = require('rollup-plugin-node-resolve'),
+  commonjs = require('rollup-plugin-commonjs')
+
+module.exports = {
+  src: 'public',
+  handlers: {
+    '.js': rollup({
+      plugins: [
+        resolve({ jsnext: true,  main: true, browser: true }),
+        commonjs(),
+        buble()
+      ],
+      sourceMap: true
+    })
+  }
+}
+```
+
+See more detail about [options](#options)
+
+### Watch changes
+
+```bash
+$ felt -src public --watch
+```
+
+### Export static files
+
+This is handy to upload the contents to amazon S3 or GitHub Pages. Felt exports not only compiled files but also other assets like HTML, PNG, ...etc, too.
+
+```bash
+$ felt --src public --export dist
+```
+
+## With Express
 
 Install Felt and use it as an `express` middleware.
 
 ```bash
-$ npm install felt
+$ npm install --save felt
 ```
 
 Add `server.js` to the project:
@@ -23,45 +138,39 @@ app.use(express.static('public'))
 app.listen(3000)
 ```
 
-CLI mode will come soon, too.
+### Separated config files
 
-## Options
+It's a good idea to separate the config from `server.js`:
 
 ```javascript
 const
   express = require('express'),
-  felt = require('felt'),
-  rollup = require('felt-rollup'),
-  buble = require('rollup-plugin-buble'),
-  resolve = require('rollup-plugin-node-resolve'),
-  commonjs = require('rollup-plugin-commonjs')
-
-const
-  app = express(),
-  config = {
-    src: 'public',
-    handlers: {
-      '.js': rollup({
-        plugins: [
-          resolve({ jsnext: true,  main: true, browser: true }),
-          commonjs(),
-          buble()
-        ],
-        sourceMap: true
-      })
-    },
-    patterns: ['*.js', '*.css'],
-    watch: true
-  }
+  felt = require('felt')
+  config = require('./felt.config.js')
 
 app.use(felt(config))
 app.use(express.static('public'))
 app.listen(3000)
 ```
 
-property | default | other options
+`felt.config.js` could be like this:
+
+```javascript
+const
+  rollup = require('felt-rollup'),
+  buble = require('rollup-plugin-buble'),
+  resolve = require('rollup-plugin-node-resolve'),
+  commonjs = require('rollup-plugin-commonjs')
+
+module.exports = {/* options */}
+```
+
+
+## Options
+
+property | default | descriptions
 :-- | :-- | :--
-**opts.src** | (not set) | the document directory to serve
+**opts.src** | `.` | the document directory to serve
 **opts.cache** | `'cache'` | don't make it inside `src`
 **opts.root** | `process.cwd()` | usually no need to set it
 **opts.handlers** | `{}` | see the section below
@@ -69,7 +178,6 @@ property | default | other options
 **opts.update** | `'once'` | `'never'` or `'allways'`
 **opts.refresh** | `true` | set `false` to skip refreshing on starting
 **opts.watch** | `false` | set `true` to detect changes
-**opts.maxAge** | `0` |
 **opts.debug** | `false` | set `true` to show debug comments on the terminal
 
 ### opts.handlers
@@ -122,6 +230,8 @@ You can also specify the custom handler for the pattern:
 
 ## Plugins
 
+Plugins are the interface to compilers like Rollup or PostCSS. Actually these are the thin wrapper of these libraries:
+
 - [felt-rollup](https://github.com/cognitom/felt-rollup): JavaScript bundler
 - [felt-postcss](https://github.com/cognitom/felt-postcss): CSS bundler
 
@@ -132,69 +242,7 @@ Recipes are pre-made configurations. You can use these recipe with some overwrit
 - [felt-recipe-minimal](https://github.com/cognitom/felt-recipe-minimal): PostCSS and Rollup with Bublé
 - [felt-recipe-standard](https://github.com/cognitom/felt-recipe-standard): PostCSS and Rollup with Babel
 
-## Todos
 
-There're some under-developing features.
+## License
 
-### CLI standalone server
-
-Install felt globally:
-
-```bash
-$ npm install -g felt
-```
-
-Choose recipe and overwrite some options:
-
-```bash
-$ cd path/to/root
-$ felt --recipe minimal --src public
-```
-
-Or choose your own config file:
-
-```bash
-$ felt --config
-```
-
-This is the same as below:
-
-```bash
-$ felt --config felt.config.js
-```
-
-The config file could be like this:
-
-```javascript
-'use strict'
-const
-  rollup = require('felt-rollup'),
-  buble = require('rollup-plugin-buble'),
-  resolve = require('rollup-plugin-node-resolve'),
-  commonjs = require('rollup-plugin-commonjs')
-
-module.exports = {
-  src: 'public',
-  handlers: {
-    '.js': rollup({
-      plugins: [
-        resolve({ jsnext: true,  main: true, browser: true }),
-        commonjs(),
-        buble()
-      ],
-      sourceMap: true
-    })
-  },
-  patterns: ['*.js'],
-  watch: true
-}
-```
-
-### Static site exporter
-
-This is handy to upload the contents to amazon S3 or GitHub Pages.
-
-```bash
-$ cd path/to/root
-$ felt public -e dist
-```
+MIT © Tsutomu Kawamura
