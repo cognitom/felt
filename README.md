@@ -47,7 +47,7 @@ $ cd path/to/project/
 $ felt --recipe minimal --src public
 ```
 
-There're some [official recipes](#secipes). Check them, too.
+There're some [official recipes](#recipes). Check them, too.
 
 ### Use config files
 
@@ -242,7 +242,7 @@ Recipes are pre-made configurations. You can use these recipe with some overwrit
 - [felt-recipe-minimal](https://github.com/cognitom/felt-recipe-minimal): PostCSS and Rollup with Bublé
 - [felt-recipe-standard](https://github.com/cognitom/felt-recipe-standard): PostCSS and Rollup with Babel
 
-*Note: the repository name of the recipe supposed to have prefix `felt-recipe-`.* 
+*Note: the repository name of the recipe supposed to have prefix `felt-recipe-`.*
 
 ## License
 
