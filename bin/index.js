@@ -7,9 +7,12 @@ const
   path = require('path'),
   server = require('../lib/server'),
   npmExists = require('../lib/npm-exists'),
-  npmInstall = require('../lib/npm-install')
+  npmInstall = require('../lib/npm-install'),
+  staticExport = require('../lib/static-export'),
+  configBuilder = require('../lib/config-builder')
 
 co(function* () {
+  let recipe = {}, config = {}, flavor = { port: 3000 }
   const
     root = process.cwd(),
     helpFile = path.join(__dirname, 'help.txt'),
@@ -21,21 +24,20 @@ co(function* () {
         s: 'src',
         u: 'update',
         w: 'watch',
-        p: 'port'
+        p: 'port',
+        e: 'export'
       },
-      string: ['recipe', 'config', 'src', 'cache', 'root', 'port'],
+      string: ['recipe', 'config', 'src', 'cache', 'root', 'port', 'export'],
       boolean: ['update', 'refresh', 'no-refresh', 'watch', 'no-watch', 'debug']
     }),
-    flags = cli.flags,
-    opts = { port: 3000 }
+    flags = cli.flags
 
   if (!flags.recipe && !flags.config) flags.recipe = 'minimal'
 
   if (flags.recipe) {
     const pkgName = 'felt-recipe-' + flags.recipe
     try {
-      const recipe = require(pkgName)
-      Object.assign(opts, recipe)
+      recipe = require(pkgName)
     } catch(err) {
       try {
         if (yield npmExists(pkgName)) {
@@ -47,8 +49,7 @@ co(function* () {
             yield npmInstall(pkgName, true)
             console.log(`Recipe installed globally: ${ pkgName }`)
           }
-          const recipe = require(pkgName)
-          Object.assign(opts, recipe)
+          recipe = require(pkgName)
         }
       } catch(err) {
         throw new Error('No valid recipe')
@@ -58,26 +59,27 @@ co(function* () {
 
   if (flags.config) {
     try {
-      const
-        configFile = path.resolve(root, flags.config),
-        config = require(configFile)
-
-      Object.assign(opts, config)
+      const configFile = path.resolve(root, flags.config)
+      config = require(configFile)
     } catch(err) {
       throw new Error('No valid config file')
     }
   }
 
-  if (flags.src) opts.src = flags.src
-  if (flags.cache) opts.cache = flags.cache
-  if (flags.root) opts.root = flags.root
-  if (flags.update) opts.update = flags.update
-  if (flags.refresh) opts.refresh = true
-  if (flags.noRefresh) opts.refresh = false
-  if (flags.watch) opts.watch = true
-  if (flags.noWatch) opts.watch = false
-  if (flags.debug) opts.debug = true
-  if (flags.port) opts.port = parseInt(flags.port)
+  if (flags.src) flavor.src = flags.src
+  if (flags.cache) flavor.cache = flags.cache
+  if (flags.root) flavor.root = flags.root
+  if (flags.update) flavor.update = flags.update
+  if (flags.refresh) flavor.refresh = true
+  if (flags.noRefresh) flavor.refresh = false
+  if (flags.watch) flavor.watch = true
+  if (flags.noWatch) flavor.watch = false
+  if (flags.debug) flavor.debug = true
+  if (flags.port) flavor.port = parseInt(flags.port)
+  if (flags.export) flavor.cache = flags.export
 
-  server(opts)
+  const opts = configBuilder(recipe, config, flavor)
+
+  if (flags.export) staticExport(opts)
+    else server(opts)
 })

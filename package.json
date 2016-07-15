@@ -21,6 +21,7 @@
   "dependencies": {
     "chokidar": "^1.6.0",
     "co": "^4.6.0",
+    "cpy": "^4.0.1",
     "del": "^2.2.1",
     "express": "^4.14.0",
     "fs-promise": "^0.5.0",
