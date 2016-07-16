@@ -59,6 +59,46 @@ test('composes multiple configs', function(t) {
   t.is(opts.src, 'other')
 })
 
+test('cache and src is the same', function(t) {
+  try {
+    const
+      config = { src: 'public', cache: 'public' },
+      opts = configBuilder(config)
+
+    t.fail()
+  } catch (err) {
+    t.pass()
+  }
+})
+
+test('src is inside of cache', function(t) {
+  try {
+    const
+      config = { src: 'cache/a', cache: 'cache' },
+      opts = configBuilder(config)
+
+    t.fail()
+  } catch (err) {
+    t.pass()
+  }
+})
+
+test('cache is inside of src', function(t) {
+  const
+    config = { src: 'public', cache: 'public/cache' },
+    opts = configBuilder(config)
+
+  t.truthy(~opts.excludes.indexOf('cache/**'))
+})
+
+test('src is dot(.)', function(t) {
+  const
+    config = { src: '.', cache: 'cache' },
+    opts = configBuilder(config)
+
+  t.truthy(~opts.excludes.indexOf('cache/**'))
+})
+
 test('makes dir at empty', async function(t) {
   const dir = path.join(__dirname, 'mkdirs-test')
 
