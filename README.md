@@ -182,11 +182,11 @@ property | default | descriptions
 
 ### opts.handlers
 
-Default handlers for each extensions.
+Default handlers for each extension.
 
 ```javascript
 {
-  hendlers: {
+  handlers: {
     '*.js': rollup({
       plugins: [
         resolve({ jsnext: true }),
@@ -230,14 +230,14 @@ You can also specify the custom handler for the pattern:
 
 ## Plugins
 
-Plugins are the interface to compilers like Rollup or PostCSS. Actually these are the thin wrapper of these libraries:
+Plugins are the interface to compilers like Rollup or PostCSS. Actually, these are the thin wrapper of these libraries:
 
 - [felt-rollup](https://github.com/cognitom/felt-rollup): JavaScript bundler
 - [felt-postcss](https://github.com/cognitom/felt-postcss): CSS bundler
 
 ## Recipes
 
-Recipes are pre-made configurations. You can use these recipe with some overwrite with ease.
+Recipes are pre-made configurations. You can use these recipes with some overwrite with ease.
 
 - [felt-recipe-minimal](https://github.com/cognitom/felt-recipe-minimal): PostCSS and Rollup with Bublé
 - [felt-recipe-standard](https://github.com/cognitom/felt-recipe-standard): PostCSS and Rollup with Babel
