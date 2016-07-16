@@ -39,12 +39,20 @@
   },
   "devDependencies": {
     "ava": "^0.15.2",
+    "browser-sync": "^2.13.0",
     "eslint": "^3.0.1",
-    "felt-recipe-minimal": "^0.1.0"
+    "felt-recipe-minimal": "^0.1.0",
+    "gh-pages": "^0.11.0",
+    "normalize-css": "^2.3.1"
   },
   "scripts": {
     "test": "npm run eslint && npm run ava",
     "eslint": "eslint index.js lib/*.js bin/*.js",
-    "ava": "ava test/spec.js"
+    "ava": "ava test/spec.js",
+    "start": "npm run server & npm run sync",
+    "server": "node bin/index.js --src doc --debug --watch --port 3000",
+    "sync": "browser-sync start --files 'doc/*.html, doc/*.svg, doc/*.png, cache/**' --proxy 'localhost:3000' --port 3030",
+    "deploy": "npm run export && gh-pages -d dist",
+    "export": "node bin/index.js --src doc --export dist"
   }
 }

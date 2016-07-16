@@ -1,0 +1,163 @@
+/* reset */
+@import 'normalize-css/normalize.css';
+
+/* fonts */
+@import 'https://fonts.googleapis.com/css?family=Arvo';
+
+body {
+  font-size: 21px;
+  color: #71746C;
+}
+
+h1 {
+  background-image: url(logo.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  color: transparent;
+  height: 73px;
+  margin: 4em 0 0;
+  padding: 0;
+}
+h2 {
+  margin: 0 auto 2em;
+  text-align: center;
+  font-size: 135%;
+  font-weight: normal;
+  font-family: "Arvo", sans-serif;
+  max-width: 20em;
+}
+h4 {
+  margin: 0 auto;
+  padding: 0;
+  font-weight: normal;
+  max-width: 15em;
+}
+code,
+pre {
+  font-size: 85%;
+  padding: .05em .2em;
+  background: #EFF2EC;
+  border-radius: 2px;
+}
+a {
+  color: #6BC657;
+  text-decoration: none;
+}
+
+body > header {
+  background: #6BC657;
+  background: #6BC657 url(noize.png);
+  color: white;
+  text-align: center;
+  padding: 1px 0 0;
+  position: relative;
+}
+body > header > p {
+  font-family: "Avenir Next", sans-serif;
+  font-size: 80%;
+}
+body > header > div.left,
+body > header > div.right {
+  font-family: "Arvo";
+  font-size: 130%;
+  padding: 2em;
+}
+body > header > div.left {
+  text-align: left;
+  padding-bottom: 5em;
+}
+body > header > div.right {
+  text-align: right;
+  padding-top: 1.5em;
+  background: #BBC657;
+  background: #BBC657 url(noize.png);
+  color: #71746C;
+}
+body > header > div.floating,
+body > header > div.shadow {
+  position: absolute;
+  width: 334px;
+  height: 244px;
+  background-position: center;
+  background-repeat: no-repeat;
+  left: 50%;
+  margin-left: -167px;
+}
+body > header > div.floating {
+  background-image: url(floating.svg);
+  bottom: 8em;
+  animation-duration: 5s;
+  animation-name: bounce;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}
+@keyframes bounce {
+  from { bottom: 7.5em }
+  to { bottom: 6.5em }
+}
+body > header > div.shadow {
+  margin-left: -150px;
+  background-image: url(shadow.svg);
+  bottom: 4em;
+  animation-duration: 5s;
+  animation-name: bounce2;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}
+@keyframes bounce2 {
+  from { margin-left: -150px }
+  to { margin-left: -155px }
+}
+body > header > div ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 15em;
+}
+
+body > article {
+  padding: 3em 0;
+  margin: 0 1.5em;
+  border-bottom: 1px dotted #71746C;
+  font-family: serif;
+  text-align: center;
+}
+body > article ul {
+  text-align: left;
+  font-size: 85%;
+  padding: .5em 0;
+  margin: 1em auto;
+  font-family: sans-serif;
+  font-weight: lighter;
+  list-style: none;
+  border-top: 1px dotted #71746C;
+  border-bottom: 1px dotted #71746C;
+  max-width: 28em;
+}
+body > article ul li {
+  margin-bottom: .3em;
+}
+body > article li strong {
+  font-weight: normal;
+}
+body > article > p {
+  margin: 0 auto 1em;
+  max-width: 24em;
+  text-align: justify;
+}
+body > article > img {
+  margin: 0 auto 1.5em;
+}
+body > article > pre {
+  margin: 1em auto;
+  max-width: 26em;
+  text-align: left;
+  padding: .5em 1em;
+}
+
+body > footer {
+  text-align: center;
+  padding: 2em 0 3em;
+}

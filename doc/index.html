@@ -1,0 +1,76 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Felt: On-demand bundler for ES6 / CSS Next</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="global.css">
+</head>
+
+<body>
+  <header>
+    <h1>Felt</h1>
+    <p>a simple web server<br>
+      with the power of the future</p>
+    <div class="left">
+      <h4>Write</h4>
+      <ul>
+        <li>in ES6/7</li>
+        <li>in CSS Next</li>
+      </ul>
+    </div>
+    <div class="right">
+      <h4>Serve</h4>
+      <ul>
+        <li>in ES5</strong></li>
+        <li>in Native CSS</li>
+      </ul>
+    </div>
+    <div class="shadow"></div>
+    <div class="floating"></div>
+  </header>
+
+  <article>
+    <h2>No more pre-compile</h2>
+    <p>These days, so many things we have to do before publishing the code.
+      Babel, JSX, Sass and whatelse, they spend extra steps and our time.
+      Felt let us be free from such messy things.
+      It does all kind of conversion of the front-end codes, for you.
+      Foget the past, focus on the future!</p>
+<pre>
+$ npm i -g felt felt-recipe-minimal
+$ cd path/to/project
+$ felt
+</pre>
+    <p>See more details at <a href="https://github.com/cognitom/felt">our repo on GitHub</a>.</p>
+  </article>
+
+  <article>
+    <img src="system.svg">
+    <h2>How it works</h2>
+    <p>Behind the scenes, the awesome staffs work together: Express, Rollup and PostCSS.
+      Express is the de facto web server on Node.
+      Rollup brings the speed to compilation for JavaScript.
+      PostCSS translate futuristic codes into compatible CSS.</p>
+    <p>But important thing is that we don't have to care about these technologies behind Felt.
+      We provide "recipes" which are the combination of tools and the settings. </p>
+  </article>
+
+  <article>
+    <img src="priority.svg">
+    <h2>Recipes of the future</h2>
+    <p>Felt runs right out of the box with its "recipes". Basic recipes covers the 80% of the cases. On the other hand, we know a lot of special cases exist, too. So we have the mergeable config mechanism in it.</p>
+    <ul>
+      <li><strong>Recipes:</strong> basic configs as npm packages</li>
+      <li><strong>Configs:</strong> file base configs, <code>felt.config.js</code></li>
+      <li><strong>Options:</strong> configs as arguments</li>
+    </ul>
+    <p>A recipe provides the information: which plugins we should use in PostCSS, Rollup and so on. We can overwrite some details with <code>felt.config.js</code> or via arguments. It means that you don't have to care about the detail, and also you have full controll of the configuration.</p>
+  </article>
+
+  <footer>
+    <a href="https://github.com/cognitom/felt"><img src="github.svg"></a>
+  </footer>
+</body>
+</html>
