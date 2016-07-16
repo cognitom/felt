@@ -241,6 +241,7 @@ Recipes are pre-made configurations. You can use these recipe with some overwrit
 
 - [felt-recipe-minimal](https://github.com/cognitom/felt-recipe-minimal): PostCSS and Rollup with Bublé
 - [felt-recipe-standard](https://github.com/cognitom/felt-recipe-standard): PostCSS and Rollup with Babel
+- [felt-recipe-riot](https://github.com/cognitom/felt-recipe-riot): PostCSS and Rollup with Bublé + Riot
 
 *Note: the repository name of the recipe supposed to have prefix `felt-recipe-`.*
 
