@@ -350,11 +350,16 @@ h4 {
   font-weight: normal;
   max-width: 15em;
 }
-code {
+code,
+pre {
   font-size: 85%;
   padding: .05em .2em;
   background: #EFF2EC;
   border-radius: 2px;
+}
+a {
+  color: #6BC657;
+  text-decoration: none;
 }
 body > header {
   background: #6BC657;
@@ -472,12 +477,18 @@ body > article li strong {
   font-weight: normal;
 }
 body > article > p {
-  margin: 0 auto;
+  margin: 0 auto 1em;
   max-width: 24em;
   text-align: justify;
 }
 body > article > img {
   margin: 0 auto 1.5em;
+}
+body > article > pre {
+  margin: 1em auto;
+  max-width: 26em;
+  text-align: left;
+  padding: .5em 1em;
 }
 body > footer {
   text-align: center;
