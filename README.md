@@ -12,7 +12,7 @@ See also its [options](#options), [plugins](#plugins) and [recipes](#recipes).
 In short, install Felt globally:
 
 ```bash
-$ npm install -g felt
+$ npm install -g felt felt-recipe-minimal
 ```
 
 And run Felt:
@@ -171,7 +171,7 @@ module.exports = {/* options */}
 property | default | descriptions
 :-- | :-- | :--
 **opts.src** | `.` | the document directory to serve
-**opts.cache** | `'cache'` | don't make it inside `src`
+**opts.cache** | `'cache'` | if it's located inside `src`, ignored on requests
 **opts.root** | `process.cwd()` | usually no need to set it
 **opts.handlers** | `{}` | see the section below
 **opts.patterns** | `[]` | see the section below
