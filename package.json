@@ -1,6 +1,6 @@
 {
   "name": "felt",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Ondemand bundler for ES6 / CSS Next",
   "main": "index.js",
   "bin": "./bin/index.js",
