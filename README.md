@@ -104,7 +104,7 @@ See more detail about [options](#options)
 ### Watch changes
 
 ```bash
-$ felt -src public --watch
+$ felt --src public --watch
 ```
 
 ### Export static files
