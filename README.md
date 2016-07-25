@@ -7,6 +7,8 @@ On-demand bundler for ES6 / CSS Next.
 
 See also its [options](#options), [plugins](#plugins) and [recipes](#recipes).
 
+*Note: Felt runs on Node 6.x or above.*
+
 ## CLI usages
 
 In short, install Felt globally:
