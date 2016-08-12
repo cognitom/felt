@@ -24,6 +24,10 @@ $ cd path/to/project/
 $ felt
 ```
 
+Then, open your site in browser: `http://localhost:3000`.
+
+*Note: type `Ctrl + C` to stop the server*
+
 ### Run Felt
 
 Assume that you have a project like this:
@@ -103,6 +107,16 @@ module.exports = {
 
 See more detail about [options](#options)
 
+### Change port
+
+The default port is `3000`. If you want to change it, use `--port` option:
+
+```bash
+$ felt --port 3333
+```
+
+*Note: you can set the port option in your config file, too.*
+
 ### Watch changes
 
 ```bash
@@ -116,6 +130,8 @@ This is handy to upload the contents to amazon S3 or GitHub Pages. Felt exports 
 ```bash
 $ felt --src public --export dist
 ```
+
+*Note: with export option, Felt is not run as a server. It works as just a bundler.*
 
 ## With Express
 
