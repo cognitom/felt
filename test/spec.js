@@ -153,3 +153,16 @@ test('bundles scripts', async function(t) {
   t.is(response.body, expect.trim())
   myServer.close()
 })
+
+test('serves static contents', async function(t) {
+  const
+    port = 3334,
+    opts = configBuilder(recipeMinimal, { src: 'fixture', port }),
+    url = `http://localhost:${ port }/index.html`,
+    myServer = await server(opts),
+    response = await request(url),
+    expect = await fsp.readFile('expect/index.html', 'utf8')
+
+  t.is(response.body, expect)
+  myServer.close()
+})
