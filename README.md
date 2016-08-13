@@ -1,5 +1,7 @@
 ![Felt](doc/logo.png)
 
+[![Build Status][travis-image]][travis-url]
+
 On-demand bundler for ES6 / CSS Next.
 
 - [Use Felt as a webserver via CLI](#cli-usages)
@@ -267,3 +269,6 @@ Recipes are pre-made configurations. You can use these recipes with some overwri
 ## License
 
 MIT © Tsutomu Kawamura
+
+[travis-image]:https://img.shields.io/travis/cognitom/felt.svg?style=flat-square
+[travis-url]:https://travis-ci.org/cognitom/felt
