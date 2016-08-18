@@ -12,8 +12,6 @@ import mkdirs from '../lib/mkdirs'
 import npmExists from '../lib/npm-exists'
 import server from '../lib/server'
 
-const request = promisify(requestOriginal)
-
 test('builds basic opts from configs', function(t) {
   const
     config = { src: 'public' },
@@ -147,10 +145,10 @@ test('bundles scripts', async function(t) {
     opts = configBuilder(recipeMinimal, { src: 'fixture', port }),
     url = `http://localhost:${ port }/a.js`,
     myServer = await server(opts),
-    response = await request(url),
-    expect = await fsp.readFile('expect/a.js', 'utf8')
+    actual = await request(url),
+    expected = await readFile('expect/a.js')
 
-  t.is(response.body, expect.trim())
+  t.is(actual, expected)
   myServer.close()
 })
 
@@ -160,9 +158,23 @@ test('serves static contents', async function(t) {
     opts = configBuilder(recipeMinimal, { src: 'fixture', port }),
     url = `http://localhost:${ port }/index.html`,
     myServer = await server(opts),
-    response = await request(url),
-    expect = await fsp.readFile('expect/index.html', 'utf8')
+    actual = await request(url),
+    expected = await readFile('expect/index.html')
 
-  t.is(response.body, expect)
+  t.is(actual, expected)
   myServer.close()
 })
+
+function removeLastNewLine(str) {
+  return str.replace(/\n$/, '')
+}
+
+async function readFile(file) {
+  const content = await fsp.readFile(file, 'utf8')
+  return removeLastNewLine(content)
+}
+
+async function request(url) {
+  const response = await promisify(requestOriginal)(url)
+  return removeLastNewLine(response.body)
+}

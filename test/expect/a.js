@@ -1,11 +1,11 @@
 (function () {
-  'use strict';
+'use strict';
 
-  function b (message){
-    console.log(message)
-  }
+function b (message){
+  console.log(message)
+}
 
-  b('Hello world!')
+b('Hello world!')
 
 }());
 //# sourceMappingURL=a.js.map
