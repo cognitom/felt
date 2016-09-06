@@ -263,6 +263,7 @@ Recipes are pre-made configurations. You can use these recipes with some overwri
 - [felt-recipe-standard](https://github.com/cognitom/felt-recipe-standard): PostCSS and Rollup with Babel
 - [felt-recipe-riot](https://github.com/cognitom/felt-recipe-riot): PostCSS and Rollup with Bublé + Riot
 - [felt-recipe-react](https://github.com/cognitom/felt-recipe-react): PostCSS and Rollup with Bublé + JSX
+- [felt-recipe-preact](https://github.com/ezekielchentnik/felt-recipe-preact): PostCSS and Rollup with Bublé + Preact
 
 *Note: the repository name of the recipe supposed to have prefix `felt-recipe-`.*
 
