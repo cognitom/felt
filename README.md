@@ -195,6 +195,7 @@ property | default | descriptions
 **opts.root** | `process.cwd()` | usually no need to set it
 **opts.handlers** | `{}` | see the section below
 **opts.patterns** | `[]` | see the section below
+**opts.excludes** | `[]` | see the section below
 **opts.update** | `'once'` | `'never'` or `'allways'`
 **opts.refresh** | `true` | set `false` to skip refreshing on starting
 **opts.watch** | `false` | set `true` to detect changes
@@ -245,6 +246,16 @@ You can also specify the custom handler for the pattern:
       })
     }
   ]
+}
+```
+
+### opts.excludes
+
+This option excludes the files from compiling and copying (when exporting). Cache directory and `'node_modules/**'` are always excluded. For example:
+
+```javascript
+{
+  excludes: ['no-compile/**']
 }
 ```
 
