@@ -57,9 +57,9 @@ co(function* () {
     }
   }
 
-  if (flags.config) {
+  if (flags.config !== undefined) {
     try {
-      const configFile = path.resolve(root, flags.config)
+      const configFile = path.resolve(root, flags.config || 'felt.config.js')
       config = require(configFile)
     } catch(err) {
       throw new Error('No valid config file')
