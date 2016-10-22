@@ -7,7 +7,7 @@ Options
   --src,    -s  Document directory
   --cache       Cache directory
   --root        Root directory of the project
-  --update, -u  never, once or allways
+  --update, -u  never, once or always
   --refresh     Starts with refreshing
   --no-refresh  Starts without refreshing
   --watch,  -w  Watches files
