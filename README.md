@@ -196,7 +196,7 @@ property | default | descriptions
 **opts.handlers** | `{}` | see the section below
 **opts.patterns** | `[]` | see the section below
 **opts.excludes** | `[]` | see the section below
-**opts.update** | `'once'` | `'never'` or `'allways'`
+**opts.update** | `'once'` | `'never'` or `'always'`
 **opts.refresh** | `true` | set `false` to skip refreshing on starting
 **opts.watch** | `false` | set `true` to detect changes
 **opts.debug** | `false` | set `true` to show debug comments on the terminal
