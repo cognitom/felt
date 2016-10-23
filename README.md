@@ -196,6 +196,7 @@ property | default | descriptions
 **opts.handlers** | `{}` | see the section below
 **opts.patterns** | `[]` | see the section below
 **opts.excludes** | `[]` | see the section below
+**opts.external** | `{}` | see the section below
 **opts.update** | `'once'` | `'never'` or `'always'`
 **opts.refresh** | `true` | set `false` to skip refreshing on starting
 **opts.watch** | `false` | set `true` to detect changes
@@ -258,6 +259,23 @@ This option excludes the files from compiling and copying (when exporting). Cach
   excludes: ['no-compile/**']
 }
 ```
+
+### opts.external
+
+This option makes copies from deeper files typically in `node_modules`. For example, if you need to access `node_modules/pouchdb/dist/pouchdb.min.js`, you may write like this:
+
+```javascript
+{
+  external: {
+    'pouchdb.js': 'node_modules/pouchdb/dist/pouchdb.min.js'
+    // 'where/to/expose': 'path/from/opts.root'
+  }
+}
+```
+
+Then you can access it by `http://localhost:3000/pouchdb.js`. This option is convenient to directly expose a JavaScript or CSS file which comes from `npm` or `bower`.
+
+**Note**: The files will not be processed by `opts.handlers`. This means that the file will skip compiling by `rollup` and so on.
 
 ## Plugins
 
