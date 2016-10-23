@@ -24,24 +24,24 @@
     "url": "https://github.com/cognitom/felt/issues"
   },
   "dependencies": {
-    "chokidar": "^1.6.0",
+    "chokidar": "^1.6.1",
     "co": "^4.6.0",
     "cp-file": "^4.1.0",
     "cpy": "^4.0.1",
     "del": "^2.2.2",
     "express": "^4.14.0",
     "fs-promise": "^0.5.0",
-    "glob": "^7.0.5",
+    "glob": "^7.1.1",
     "loglevel": "^1.4.1",
     "meow": "^3.7.0",
     "minimatch": "^3.0.3",
-    "request": "^2.74.0",
-    "tiny-promisify": "^0.1.1"
+    "request": "^2.75.0",
+    "tiny-promisify": "^1.0.0"
   },
   "devDependencies": {
     "ava": "^0.16.0",
-    "browser-sync": "^2.14.0",
-    "eslint": "^3.3.1",
+    "browser-sync": "^2.17.5",
+    "eslint": "^3.8.1",
     "felt-recipe-minimal": "^0.2.0",
     "gh-pages": "^0.11.0",
     "normalize-css": "^2.3.1"
