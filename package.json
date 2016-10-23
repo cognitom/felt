@@ -26,6 +26,7 @@
   "dependencies": {
     "chokidar": "^1.6.0",
     "co": "^4.6.0",
+    "cp-file": "^4.1.0",
     "cpy": "^4.0.1",
     "del": "^2.2.2",
     "express": "^4.14.0",

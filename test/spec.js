@@ -165,6 +165,25 @@ test('serves static contents', async function(t) {
   myServer.close()
 })
 
+test('serves refs', async function(t) {
+  const
+    port = 3335,
+    opts = configBuilder(recipeMinimal, {
+      src: 'fixture',
+      port,
+      external: {
+        'my-ref.js': 'deeper/ref.js'
+      }
+    }),
+    url = `http://localhost:${ port }/my-ref.js`,
+    myServer = await server(opts),
+    actual = await request(url),
+    expected = 'Hi!'
+
+  t.is(actual, expected)
+  myServer.close()
+})
+
 function removeLastNewLine(str) {
   return str.replace(/\n$/, '')
 }
