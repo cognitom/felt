@@ -6,8 +6,6 @@ const
   fsp = require('fs-promise'),
   path = require('path'),
   server = require('../lib/server'),
-  npmExists = require('../lib/npm-exists'),
-  npmInstall = require('../lib/npm-install'),
   staticExport = require('../lib/static-export'),
   configBuilder = require('../lib/config-builder')
 
@@ -39,21 +37,7 @@ co(function* () {
     try {
       recipe = require(pkgName)
     } catch(err) {
-      try {
-        if (yield npmExists(pkgName)) {
-          try {
-            yield fsp.access(path.join(root, 'node_modules'), fsp.F_OK)
-            yield npmInstall(pkgName, false)
-            console.log(`Recipe installed locally: ${ pkgName }`)
-          } catch (err) {
-            yield npmInstall(pkgName, true)
-            console.log(`Recipe installed globally: ${ pkgName }`)
-          }
-          recipe = require(pkgName)
-        }
-      } catch(err) {
-        throw new Error('No valid recipe')
-      }
+      throw new Error(`${ pkgName } is not installed`)
     }
   }
 

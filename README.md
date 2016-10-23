@@ -19,6 +19,8 @@ In short, install Felt globally:
 $ npm install -g felt felt-recipe-minimal
 ```
 
+*Note: `felt-recipe-minimal` is a recipe for Felt. You may install other recipes, too.*
+
 And run Felt:
 
 ```bash
@@ -41,12 +43,6 @@ Assume that you have a project like this:
     - style.css
   - cache/
   - package.json
-
-Install a [recipe](#recipes) from npm:
-
-```bash
-$ npm install -g felt-recipe-minimal
-```
 
 Then run Felt:
 

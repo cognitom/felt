@@ -9,7 +9,6 @@ import promisify from 'tiny-promisify'
 import recipeMinimal from 'felt-recipe-minimal'
 import configBuilder from '../lib/config-builder'
 import mkdirs from '../lib/mkdirs'
-import npmExists from '../lib/npm-exists'
 import server from '../lib/server'
 
 test('builds basic opts from configs', function(t) {
@@ -128,15 +127,6 @@ test('makes dir but already file exists', async function(t) {
   t.true(dirCreated)
 
   await del(dir)
-})
-
-test('checks npm-exists', async function(t) {
-  const
-    minimalIsExists = await npmExists('felt-recipe-minimal'),
-    maximalIsNotExists = await npmExists('felt-recipe-maximal')
-
-  t.true(minimalIsExists)
-  t.false(maximalIsNotExists)
 })
 
 test('bundles scripts', async function(t) {
