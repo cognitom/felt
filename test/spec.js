@@ -9,7 +9,6 @@ import promisify from 'tiny-promisify'
 import recipeMinimal from 'felt-recipe-minimal'
 import configBuilder from '../lib/config-builder'
 import mkdirs from '../lib/mkdirs'
-import npmExists from '../lib/npm-exists'
 import server from '../lib/server'
 
 test('builds basic opts from configs', function(t) {
@@ -130,15 +129,6 @@ test('makes dir but already file exists', async function(t) {
   await del(dir)
 })
 
-test('checks npm-exists', async function(t) {
-  const
-    minimalIsExists = await npmExists('felt-recipe-minimal'),
-    maximalIsNotExists = await npmExists('felt-recipe-maximal')
-
-  t.true(minimalIsExists)
-  t.false(maximalIsNotExists)
-})
-
 test('bundles scripts', async function(t) {
   const
     port = 3333,
@@ -160,6 +150,25 @@ test('serves static contents', async function(t) {
     myServer = await server(opts),
     actual = await request(url),
     expected = await readFile('expect/index.html')
+
+  t.is(actual, expected)
+  myServer.close()
+})
+
+test('serves refs', async function(t) {
+  const
+    port = 3335,
+    opts = configBuilder(recipeMinimal, {
+      src: 'fixture',
+      port,
+      external: {
+        'my-ref.js': 'deeper/ref.js'
+      }
+    }),
+    url = `http://localhost:${ port }/my-ref.js`,
+    myServer = await server(opts),
+    actual = await request(url),
+    expected = 'Hi!'
 
   t.is(actual, expected)
   myServer.close()
