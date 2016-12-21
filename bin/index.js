@@ -25,8 +25,8 @@ co(function* () {
         p: 'port',
         e: 'export'
       },
-      string: ['recipe', 'config', 'src', 'cache', 'root', 'port', 'export'],
-      boolean: ['update', 'refresh', 'no-refresh', 'watch', 'no-watch', 'debug']
+      string: ['recipe', 'config', 'src', 'cache', 'root', 'port', 'export', 'update'],
+      boolean: ['refresh', 'no-refresh', 'watch', 'no-watch', 'debug']
     }),
     flags = cli.flags
 
