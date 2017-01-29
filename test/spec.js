@@ -188,6 +188,58 @@ test('serves static contents in sub directory', async function(t) {
   myServer.close()
 })
 
+test('export bundles scripts', async function(t) {
+  const
+    dir = path.join(__dirname, 'dist'),
+    opts = configBuilder(recipeMinimal, { src: 'fixture', cache: 'dist' })
+  await staticExport(opts)
+  const
+    actual = await readFile('dist/a.js'),
+    expected = await readFile('expect/a.js')
+  
+  t.is(actual, expected)
+  await del(dir)
+})
+
+test('export static contents', async function(t) {
+  const
+    dir = path.join(__dirname, 'dist'),
+    opts = configBuilder(recipeMinimal, { src: 'fixture', cache: 'dist' })
+  await staticExport(opts)
+  const
+    actual = await readFile('dist/index.html'),
+    expected = await readFile('expect/index.html')
+  
+  t.is(actual, expected)
+  await del(dir)
+})
+
+test('export refs', async function(t) {
+  const
+    dir = path.join(__dirname, 'dist'),
+    opts = configBuilder(recipeMinimal, { src: 'fixture', cache: 'dist' })
+  await staticExport(opts)
+  const
+    actual = await readFile('dist/my-ref.js'),
+    expected = await readFile('deeper/ref.js')
+  
+  t.is(actual, expected)
+  await del(dir)
+})
+
+test('export static contents in sub directory', async function(t) {
+  const
+    dir = path.join(__dirname, 'dist'),
+    opts = configBuilder(recipeMinimal, { src: 'fixture', cache: 'dist' })
+  await staticExport(opts)
+  const
+    actual = await readFile('dist/images/logo.png'),
+    expected = await readFile('expect/images/logo.png')
+  
+  t.is(actual, expected)
+  await del(dir)
+})
+
 function removeLastNewLine(str) {
   return str.replace(/\n$/, '')
 }
