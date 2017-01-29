@@ -7,6 +7,7 @@ import fsp from 'fs-promise'
 import requestOriginal from 'request'
 import promisify from 'tiny-promisify'
 import recipeMinimal from 'felt-recipe-minimal'
+import staticExport from '../lib/static-export'
 import configBuilder from '../lib/config-builder'
 import mkdirs from '../lib/mkdirs'
 import server from '../lib/server'
@@ -172,6 +173,71 @@ test('serves refs', async function(t) {
 
   t.is(actual, expected)
   myServer.close()
+})
+
+test('serves static contents in sub directory', async function(t) {
+  const
+    port = 3336,
+    opts = configBuilder(recipeMinimal, { src: 'fixture', port }),
+    url = `http://localhost:${ port }/images/logo.png`,
+    myServer = await server(opts),
+    actual = await request(url),
+    expected = await readFile('expect/images/logo.png')
+  
+  t.is(actual, expected)
+  myServer.close()
+})
+
+test('export bundles scripts', async function(t) {
+  const
+    dir = path.join(__dirname, 'dist'),
+    opts = configBuilder(recipeMinimal, { src: 'fixture', cache: 'dist' })
+  await staticExport(opts)
+  const
+    actual = await readFile('dist/a.js'),
+    expected = await readFile('expect/a.js')
+  
+  t.is(actual, expected)
+  await del(dir)
+})
+
+test('export static contents', async function(t) {
+  const
+    dir = path.join(__dirname, 'dist'),
+    opts = configBuilder(recipeMinimal, { src: 'fixture', cache: 'dist' })
+  await staticExport(opts)
+  const
+    actual = await readFile('dist/index.html'),
+    expected = await readFile('expect/index.html')
+  
+  t.is(actual, expected)
+  await del(dir)
+})
+
+test('export refs', async function(t) {
+  const
+    dir = path.join(__dirname, 'dist'),
+    opts = configBuilder(recipeMinimal, { src: 'fixture', cache: 'dist' })
+  await staticExport(opts)
+  const
+    actual = await readFile('dist/my-ref.js'),
+    expected = await readFile('deeper/ref.js')
+  
+  t.is(actual, expected)
+  await del(dir)
+})
+
+test('export static contents in sub directory', async function(t) {
+  const
+    dir = path.join(__dirname, 'dist'),
+    opts = configBuilder(recipeMinimal, { src: 'fixture', cache: 'dist' })
+  await staticExport(opts)
+  const
+    actual = await readFile('dist/images/logo.png'),
+    expected = await readFile('expect/images/logo.png')
+  
+  t.is(actual, expected)
+  await del(dir)
 })
 
 function removeLastNewLine(str) {
