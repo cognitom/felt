@@ -7,6 +7,7 @@ import fsp from 'fs-promise'
 import requestOriginal from 'request'
 import promisify from 'tiny-promisify'
 import recipeMinimal from 'felt-recipe-minimal'
+import staticExport from '../lib/static-export'
 import configBuilder from '../lib/config-builder'
 import mkdirs from '../lib/mkdirs'
 import server from '../lib/server'
@@ -170,6 +171,19 @@ test('serves refs', async function(t) {
     actual = await request(url),
     expected = 'Hi!'
 
+  t.is(actual, expected)
+  myServer.close()
+})
+
+test('serves static contents in sub directory', async function(t) {
+  const
+    port = 3336,
+    opts = configBuilder(recipeMinimal, { src: 'fixture', port }),
+    url = `http://localhost:${ port }/images/logo.png`,
+    myServer = await server(opts),
+    actual = await request(url),
+    expected = await readFile('expect/images/logo.png')
+  
   t.is(actual, expected)
   myServer.close()
 })
