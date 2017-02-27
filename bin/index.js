@@ -30,7 +30,7 @@ co(function* () {
     }),
     flags = cli.flags
 
-  if (!flags.recipe && !flags.config) flags.recipe = 'minimal'
+  if (!flags.recipe && !flags.config && flags.config !== '') flags.recipe = 'minimal'
 
   if (flags.recipe) {
     const pkgName = 'felt-recipe-' + flags.recipe
